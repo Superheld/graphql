@@ -1,3 +1,5 @@
+.idea
+
 env/
 server/__pycache__
 

@@ -1,3 +1,6 @@
+# import sys
+# print("Python Path:", sys.path)
+
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from schemas.kategorienSchema import schema
@@ -7,7 +10,7 @@ app = FastAPI()
 @app.on_event("startup")
 async def startup():
     from models import db
-    db.bind(provider='sqlite', filename='db.sql')
+    db.bind(provider='sqlite', filename=':memory:')
     db.generate_mapping(create_tables=True)
 
 @app.post("/graphql")

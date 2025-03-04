@@ -3,10 +3,8 @@ from datetime import datetime
 from . import db
 
 class CategoryRelation(db.Entity):
-    category1 = Required('Categories')
-    category2 = Required('Categories')
-
-    # set category relation
+    category1 = Required('Categories', reverse='related_categories')
+    category2 = Required('Categories', reverse='related_to_categories')
 
 class Categories(db.Entity):
     id = PrimaryKey(int, auto=True)
@@ -14,9 +12,9 @@ class Categories(db.Entity):
     description = Required(str)
     isDeletedDate = Optional(datetime)
 
-    # related_categories = Set(CategoryRelation, reverse='category1')
-    # related_to_categories = Set(CategoryRelation, reverse='category2')
-    
+    related_categories = Set(CategoryRelation, reverse='category1')
+    related_to_categories = Set(CategoryRelation, reverse='category2')
+
     @db_session
     def before_insert(self):
         self.name = self.name.strip().title()

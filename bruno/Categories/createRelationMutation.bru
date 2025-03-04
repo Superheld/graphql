@@ -1,0 +1,30 @@
+meta {
+  name: createRelationMutation
+  type: graphql
+  seq: 5
+}
+
+post {
+  url: {{urlGqlServer}}
+  body: graphql
+  auth: none
+}
+
+body:graphql {
+  
+  mutation {
+    addCategoryRelation(category1Id: 1, category2Id: 2) {
+      relation {
+        id
+        category1 {
+          id
+          name
+        }
+        category2 {
+          id
+          name
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+meta {
+  name: queryCategorie
+  type: graphql
+  seq: 3
+}
+
+post {
+  url: {{urlGqlServer}}
+  body: graphql
+  auth: none
+}
+
+body:graphql {
+  query {
+    categories {
+      id
+      name
+      description
+      isDeletedDate
+      relatedCategories {
+        id
+        name
+        description
+        isDeletedDate
+      }
+    }
+  }
+  
+}

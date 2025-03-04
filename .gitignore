@@ -1,0 +1,7 @@
+env/
+server/__pycache__
+
+server/models/__pycache__
+server/schemas/__pycache__
+
+db.sql

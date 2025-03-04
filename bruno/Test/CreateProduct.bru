@@ -1,0 +1,24 @@
+meta {
+  name: CreateProduct
+  type: graphql
+  seq: 2
+}
+
+post {
+  url: {{urlGqlServer}}
+  body: graphql
+  auth: none
+}
+
+body:graphql {
+    mutation {
+      createProduct(name: "Handy", price: 199.99) {
+        product {
+          id
+          name
+          price
+        }
+      }
+    }
+  
+}

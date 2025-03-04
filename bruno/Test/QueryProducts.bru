@@ -1,0 +1,21 @@
+meta {
+  name: QueryProducts
+  type: graphql
+  seq: 4
+}
+
+post {
+  url: {{urlGqlServer}}
+  body: graphql
+  auth: none
+}
+
+body:graphql {
+    query {
+      products {
+        id
+        name
+        price
+      }
+    }
+}

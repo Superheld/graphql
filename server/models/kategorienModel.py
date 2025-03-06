@@ -10,7 +10,7 @@ class Categories(db.Entity):
     id = PrimaryKey(int, auto=True)
     name = Required(str)
     description = Required(str)
-    isDeletedDate = Optional(datetime)
+    is_deleted_date = Optional(datetime)
 
     related_categories = Set(CategoryRelation, reverse='category1')
     related_to_categories = Set(CategoryRelation, reverse='category2')
@@ -21,7 +21,7 @@ class Categories(db.Entity):
 
     @db_session
     def mark_as_deleted(self):
-        self.isDeletedDate = datetime.now()
+        self.is_deleted_date = datetime.now()
 
     @staticmethod
     @db_session
@@ -38,7 +38,7 @@ class Categories(db.Entity):
                 'id': category.id,
                 'name': category.name,
                 'description': category.description,
-                'isDeletedDate': category.isDeletedDate,
+                'isDeletedDate': category.is_deleted_date,
             })
             for relation in category.related_categories:
                 recursive_get(relation.category2, result, visited)

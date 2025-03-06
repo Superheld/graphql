@@ -7,17 +7,18 @@ class CategoryType(ObjectType):
     id = Int()
     name = String()
     description = String()
-    is_deleted_date = DateTime()
+    isDeletedDate = DateTime()
     related_categories = List(lambda: CategoryType)
 
 class CreateCategory(Mutation):
     class Arguments:
         name = String(required=True)
         description = String(required=True)
+
     category = graphene.Field(lambda: CategoryType)
 
     @db_session
-    def mutate(self, name, description):
+    def mutate(self, info, name, description):
         category = Categories(name=name, description=description)
         return CreateCategory(category=category)
 
@@ -28,7 +29,7 @@ class DeleteCategory(Mutation):
     success = graphene.Boolean()
 
     @db_session
-    def mutate(self, id):
+    def mutate(self, info, id):
         category = Categories.get(id=id)
         if category:
             category.mark_as_deleted()
@@ -48,7 +49,7 @@ class AddCategoryRelation(Mutation):
     relation = graphene.Field(lambda: CategoryRelationType)
 
     @db_session
-    def mutate(self, category1_id, category2_id):
+    def mutate(self, info, category1_id, category2_id):
         category1 = Categories.get(id=category1_id)
         category2 = Categories.get(id=category2_id)
         if category1 and category2:
@@ -58,15 +59,9 @@ class AddCategoryRelation(Mutation):
 
 class Query(ObjectType):
     categories = List(CategoryType)
-    category = graphene.Field(CategoryType, id=Int())
-
     @db_session
     def resolve_categories(self, info):
         return Categories.get_all_categories()
-
-    @db_session
-    def resolve_category(self, info, id):
-        return Categories.get(id=id)
 
 class Mutation(ObjectType):
     create_category = CreateCategory.Field()

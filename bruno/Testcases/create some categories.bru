@@ -1,0 +1,25 @@
+meta {
+  name: create some categories
+  type: graphql
+  seq: 1
+}
+
+post {
+  url: {{urlGqlServer}}
+  body: graphql
+  auth: none
+}
+
+body:graphql {
+  mutation {
+    createCategory(name: "Next Category", description: "Description of new category") {
+      category {
+        id
+        name
+        description
+        isDeletedDate
+      }
+    }
+  }
+  
+}
